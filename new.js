@@ -17,16 +17,6 @@ function setInnerText(elementId, text) {
     }
 }
 
-function openModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-}
-
-function closeModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
-}
-
 function handleTicketClick() {
     const ticketId = this.id;
     if (!clickedTickets.includes(ticketId) && clickedTickets.length < 4) {
@@ -38,6 +28,7 @@ function handleTicketClick() {
         totalBdt.innerText = `${clickedTickets.length * 550}`;
         finalBdt.innerText = totalBdt.innerText;
 
+        // Decrease the total number of available seats
         count2--;
         setInnerText("40-seat", count2);
         count++;
@@ -45,8 +36,9 @@ function handleTicketClick() {
     } else if (clickedTickets.includes(ticketId)) {
         const index = clickedTickets.indexOf(ticketId);
         clickedTickets.splice(index, 1);
-        this.style.backgroundColor = ""; 
+        this.style.backgroundColor = ""; // Reset background color when unselecting
 
+        // Increase the total number of available seats
         count2++;
         setInnerText("40-seat", count2);
         count--;
@@ -78,11 +70,10 @@ btn.addEventListener("click", function () {
         finalBdt.innerText = totalBdt.innerText - discountAmount;
 
         setTimeout(() => {
-            openModal(); 
-            couponElement.value = ""; 
+            alert("You got the discount, Enjoy!");
+            couponElement.value = ""; // Clear the input field after the alert
         }, 100);
     } else {
         alert("Please buy 4 tickets to apply the coupon");
     }
 });
-
